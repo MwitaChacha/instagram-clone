@@ -11,3 +11,9 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model=Profile        
         exclude=['user'] 
+        
+        
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model=Comment        
+        fields=['comment']          
