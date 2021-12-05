@@ -10,7 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,10 +82,18 @@ WSGI_APPLICATION = 'instagram.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+       'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'instagram',
+        'USER': 'postgres',
+    'PASSWORD':'6775',
     }
 }
+
+cloudinary.config( 
+  cloud_name = "dgkojinst", 
+  api_key = "938237336993178", 
+  api_secret = "PpuLrBceEgRwpOX1yU1Q2nOJIlE" 
+)
 
 
 # Password validation
