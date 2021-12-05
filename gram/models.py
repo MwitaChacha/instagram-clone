@@ -62,3 +62,8 @@ class Profile(models.Model):
     def search_profile(cls,search_term):
         profiles = cls.objects.filter(user__username__icontains = search_term).all()
         return profiles    
+    
+class Like(models.Model):
+    image =models.ForeignKey(Image, on_delete = models.CASCADE,related_name='imagelikes')
+    liker=models.ForeignKey(User,on_delete = models.CASCADE,related_name='userlike')    
+     
