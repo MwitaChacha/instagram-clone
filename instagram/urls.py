@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('gram.urls')),
     path('accounts/', include('registration.backends.simple.urls')),
+    path('logout/', views.LogoutView.as_view(next_page='login'), name='logout'),
 ]
