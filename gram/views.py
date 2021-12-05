@@ -7,6 +7,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from .forms import ImageForm, ProfileForm, CommentForm
 from django.contrib.auth import logout# Create your views here.
+from .email import send_welcome_email
+
 
 @login_required(login_url='/accounts/login/')
 def index(request):
