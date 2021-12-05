@@ -81,4 +81,33 @@ def search_results(request):
   else:
     message="You haven't searched for any term."  
     return render(request,'search.html',{"message":message,"users":searched_users})
-  
+
+@login_required(login_url='/accounts/login/')
+def profile(request,pk):
+    
+    user = User.objects.get(pk = pk)
+    images = Image.objects.filter(user = user).all()
+    current_user = request.user
+    profiles = Profile.objects.filter(user = user).all()
+    return render(request,'profile.html',{"current_user":current_user,"images":images, "user":user, "profiles":profiles})  
+
+@login_required
+def comments(request,image_id):
+  form = CommentForm()
+  image = Image.objects.filter(pk = image_id).first()
+  if request.method == 'POST':
+    form = CommentForm(request.POST)
+    if form.is_valid():
+      comment = form.save(commit = False)
+      comment.user = request.user
+      comment.image = image
+      comment.save() 
+  return redirect('index')
+
+def like(request, image_id):
+    current_user = request.user
+    image=Image.objects.get(id=image_id)
+    new_like,created= Like.objects.get_or_create(liker=current_user,image=image)
+    new_like.save()
+
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
