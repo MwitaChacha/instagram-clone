@@ -50,4 +50,22 @@ def userprofile(request):
     images =Image.objects.filter(user_id = current_user.id).all()
     profiles = Profile.objects.filter(user_id = current_user.id).all()
     return render(request, 'user-profile.html',{"current_user": current_user, "images":images, "profiles":profiles})
-    
+ 
+
+@login_required(login_url='/accounts/login/')
+def updateprofile(request):
+    current_user = request.user
+    form = ProfileForm(request.POST, request.FILES)
+    if request.method == 'POST':  
+        
+        
+        if form.is_valid():
+            prof = form.save(commit=False)
+            prof.user = request.user
+            prof.save()
+            return redirect ('userprofile')
+        
+        else:
+            form = ProfileForm()
+                        
+    return render(request, 'update-profile.html', {'form':form})    
