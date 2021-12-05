@@ -42,3 +42,12 @@ def post(request):
     else:
         form = ImageForm()
         return render(request, 'post.html', {'form':form})
+    
+
+@login_required(login_url='/accounts/login/')
+def userprofile(request):
+    current_user = request.user
+    images =Image.objects.filter(user_id = current_user.id).all()
+    profiles = Profile.objects.filter(user_id = current_user.id).all()
+    return render(request, 'user-profile.html',{"current_user": current_user, "images":images, "profiles":profiles})
+    
