@@ -43,3 +43,22 @@ class Image(models.Model):
     @property
     def saved_comments(self):
         return self.comments.all()  
+    
+class Profile(models.Model):
+    profile_photo = CloudinaryField('image')
+    bio = models.CharField(max_length=250)
+    user = models.OneToOneField(User,on_delete = models.CASCADE)
+    
+    def __str__(self):
+        return self.user
+    
+    def save_profile(self):
+        self.save()
+        
+    def save_profile(self):
+        self.delete()    
+    
+    @classmethod
+    def search_profile(cls,search_term):
+        profiles = cls.objects.filter(user__username__icontains = search_term).all()
+        return profiles    
