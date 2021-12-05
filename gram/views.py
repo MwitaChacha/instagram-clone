@@ -26,3 +26,19 @@ def index(request):
         form = CommentForm()
         
     return render(request, 'index.html',{"current_user": current_user, "images":images, "profiles":profiles, "form":form})
+
+
+@login_required(login_url='/accounts/login/')
+def post(request):
+    
+    if request.method == 'POST':  
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+            return redirect('index')
+    
+    else:
+        form = ImageForm()
+        return render(request, 'post.html', {'form':form})
