@@ -8,14 +8,12 @@
         <strong><p class="text-center">PROFILE</p></strong>
         {% for profile in profiles %}
         <div class="col-lg-4 col-md-6 col-sml-12">
-            {% if profile.image %}
-            <i class="fas fa-camera-retro"></i> <img class="prof-display" src="{{profile.image.url}}" alt="Update profile to view">
-           
+            
+             <img class="prof-display mb-2" src="{{profile.profile_photo.url}}" alt="Update profile to view">
+           <p>{{profile.user}}</p>
             <p><i class="far px-3 fa-file-alt"></i>{{profile.bio}}</p>
 
-            {% else %}
-                <p>No profile information</p>
-                {% endif %}
+            
         </div>
         {% endfor %}
     </div>
