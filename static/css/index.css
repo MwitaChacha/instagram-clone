@@ -53,7 +53,8 @@ h6 {
     margin: 2%;
     background-color: #e56969;
     padding: 2%;
-    border: 1px solid #e56969
+    border: 1px solid #e56969;
+ 
 }
 
 .login-btn:hover {
